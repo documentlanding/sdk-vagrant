@@ -1,0 +1,11 @@
+parameters:
+    database_host: 127.0.0.1
+    database_port: null
+    database_name: sdk_documentlanding
+    database_user: sdk_user
+    database_password: sdk_pass
+    mailer_transport: smtp
+    mailer_host: 127.0.0.1
+    mailer_user: null
+    mailer_password: null
+    secret: 1314e4d19020dddbd79968c376aed3a130fc99f4

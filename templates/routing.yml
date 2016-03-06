@@ -1,0 +1,7 @@
+documentlanding_sdk:
+    resource: "@SdkBundle/Controller/"
+    type:     annotation
+
+documentlanding_sdk_demo:
+    resource: "@SdkDemoBundle/Controller/"
+    type:     annotation

@@ -20,8 +20,8 @@ class AppKernel extends Kernel
             // Just a utility for the front page.
             new Knp\Bundle\MarkdownBundle\KnpMarkdownBundle(),
 
-            new DocumentLanding\SDKBundle\SDKBundle(),
-            new Demo\DemoBundle\DemoBundle(),
+            new DocumentLanding\SdkBundle\SdkBundle(),
+            new DocumentLanding\SdkDemoBundle\SdkDemoBundle(),
         );
 
         if (in_array($this->getEnvironment(), array('dev', 'test'))) {
