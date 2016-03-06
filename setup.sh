@@ -28,17 +28,17 @@ service nginx restart
 
 ########### Install & Configure HHVM ############
 
-locale-gen en_US.UTF-8
-dpkg-reconfigure locales
-
-apt-get -y install software-properties-common
-apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e7281be7a449
-add-apt-repository 'deb http://dl.hhvm.com/ubuntu trusty main'
-apt-get update
-apt-get -y install hhvm
-
-echo "hhvm.libxml.ext_entity_whitelist = file,http" >> /etc/hhvm/php.ini
-echo 'date.timezone="America/Chicago"' >> /etc/hhvm/php.ini
+#locale-gen en_US.UTF-8
+#dpkg-reconfigure locales
+#
+#apt-get -y install software-properties-common
+#apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e7281be7a449
+#add-apt-repository 'deb http://dl.hhvm.com/ubuntu trusty main'
+#apt-get update
+#apt-get -y install hhvm
+#
+#echo "hhvm.libxml.ext_entity_whitelist = file,http" >> /etc/hhvm/php.ini
+#echo 'date.timezone="America/Chicago"' >> /etc/hhvm/php.ini
 
 
 ########### Install and Configure Symfony2 Project ############
@@ -46,18 +46,18 @@ echo 'date.timezone="America/Chicago"' >> /etc/hhvm/php.ini
 ## Create Symfony2 Project
 mkdir -p /var/www/html
 curl -LsS https://symfony.com/installer -o /usr/local/bin/symfony
+chmod a+x /usr/local/bin/symfony
 cd /var/www/html
-symfony new sdk.documentlanding.com 2.7
+sudo symfony new sdk.documentlanding.com 2.7
 
-## Download and Extract Project
-cd ~
-curl -OL https://github.com/documentlanding/sdk-demo-project/archive/master.tar.gz
-tar -zxvf master.tar.gz
-mv -f sdk-demo-project-master/composer.json /var/www/html/sdk.documentlanding.com/composer.json
+## Replace composer.json
+cp /vagrant/templates/composer.json /var/www/html/sdk.documentlanding.com/composer.json
 
 ## Install Everything with Composer
+## Use HHVM for performance
 cd /var/www/html/sdk.documentlanding.com
-hhvm /usr/local/bin/composer.phar update
+# hhvm /usr/local/bin/composer.phar update
+php /usr/local/bin/composer.phar update
 
 ## Add Bundle Configuration to Config.yml
 echo "
@@ -88,4 +88,5 @@ setfacl -R -m u:www-data:rwx app/cache app/logs
 setfacl -dR -m u:www-data:rwx app/cache app/logs
 
 ## Clear Cache
+## Use PHP5-FPM to avoid cache incompatibility with HHVM
 php app/console cache:clear
