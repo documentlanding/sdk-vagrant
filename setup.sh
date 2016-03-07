@@ -5,7 +5,7 @@ apt-get -y install --only-upgrade bash
 
 ########### Install Server Requirements ############
 
-apt-get -y install php5 php5-fpm php5-curl php5-dev php5-cli php5-dev php5-intl php5-mysql curl git
+apt-get -y install php5 php5-fpm php5-curl php5-dev php5-cli php5-dev php5-intl php5-mysql curl git nginx
 curl -s http://getcomposer.org/installer | php
 mv composer.phar /usr/local/bin/composer.phar
 
@@ -18,12 +18,6 @@ apt-get -y install mysql-server-5.6
 
 mysql -u root -pdbroot123 -e "CREATE DATABASE IF NOT EXISTS sdk_documentlanding CHARACTER SET utf8 COLLATE utf8_general_ci;"
 mysql -u root -pdbroot123 -e "grant all privileges on sdk_documentlanding.* to sdk_user@localhost identified by 'sdk_pass';"
-
-
-########### Configure NGINX ############
-
-cp /vagrant/templates/nginx-server.default /etc/nginx/sites-available/default
-service nginx restart
 
 
 ########### Install & Configure HHVM ############
@@ -90,3 +84,9 @@ setfacl -dR -m u:www-data:rwx app/cache app/logs
 ## Clear Cache
 ## Use PHP5-FPM to avoid cache incompatibility with HHVM
 php app/console cache:clear
+
+
+########### Configure NGINX ############
+
+cp /vagrant/templates/nginx-server.default /etc/nginx/sites-available/default
+service nginx restart
