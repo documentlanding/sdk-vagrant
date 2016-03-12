@@ -20,21 +20,6 @@ mysql -u root -pdbroot123 -e "CREATE DATABASE IF NOT EXISTS sdk_documentlanding 
 mysql -u root -pdbroot123 -e "grant all privileges on sdk_documentlanding.* to sdk_user@localhost identified by 'sdk_pass';"
 
 
-########### Install & Configure HHVM ############
-
-#locale-gen en_US.UTF-8
-#dpkg-reconfigure locales
-#
-#apt-get -y install software-properties-common
-#apt-key adv --recv-keys --keyserver hkp://keyserver.ubuntu.com:80 0x5a16e7281be7a449
-#add-apt-repository 'deb http://dl.hhvm.com/ubuntu trusty main'
-#apt-get update
-#apt-get -y install hhvm
-#
-#echo "hhvm.libxml.ext_entity_whitelist = file,http" >> /etc/hhvm/php.ini
-#echo 'date.timezone="America/Chicago"' >> /etc/hhvm/php.ini
-
-
 ########### Install and Configure Symfony2 Project ############
 
 ## Create Symfony2 Project
@@ -57,7 +42,8 @@ php /usr/local/bin/composer.phar update
 echo "
 sdk:
     api_key: ThisTokenIsNotSoSecretChangeIt
-    lead_class: DocumentLanding\SdkDemoBundle\Entity\Lead
+#    lead_class: DocumentLanding\SdkDemoBundle\Entity\Lead
+    lead_class: ~
     receipt_email: ~
     audit: ~" >> /var/www/html/sdk.documentlanding.com/app/config/config.yml
 
