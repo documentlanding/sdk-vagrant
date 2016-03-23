@@ -41,7 +41,7 @@ php /usr/local/bin/composer.phar update
 ## Add Bundle Configuration to Config.yml
 echo "
 sdk:
-    api_key: ThisTokenIsNotSoSecretChangeIt
+    access_token: ThisTokenIsNotSoSecretChangeIt
 #    lead_class: DocumentLanding\SdkDemoBundle\Entity\Lead
     lead_class: ~
     receipt_email: ~
